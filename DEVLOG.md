@@ -10,12 +10,20 @@
 
 ---
 
-## Entry 1 – [Date]: Initial Plan
+## Entry 1 – 5/7/2026: Initial Plan
 
 > Required. Write this before writing any code. Describe your plan: what you will
 > implement first, what parts you expect to be difficult, and how you plan to test.
 
-_Your entry here._
+My initial plan is to begin the Dijkstra's precomputation design/algorithm such as the select_sources and run_dijkstra
+which will be used to compute distances from the entrance and each relic chamber. 
+I plan to implement that using the priority queue.
+In this part, I expect the most difficult part will be to make sure my algorithm is 
+efficient and has a good time complexity by handling the priority queue such as 
+its duplicate entries to avoid extra work in my algorithm.
+To test this, I can use the given tests graphs and run my dijkstra's on it to ensure that the program 
+is outputting what is expected of it. I may also create my own testing to ensure that it is running
+my algorithm efficiently by skipping said entries/nodes.
 
 ---
 
