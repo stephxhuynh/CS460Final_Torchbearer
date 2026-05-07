@@ -2,8 +2,8 @@
 CS 460 – Algorithms: Final Programming Assignment
 The Torchbearer
 
-Student Name: ___________________________
-Student ID:   ___________________________
+Student Name: Steph Huynh
+Student ID:   824058671
 
 INSTRUCTIONS
 ------------
