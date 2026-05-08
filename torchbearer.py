@@ -32,7 +32,17 @@ def explain_problem():
         Your Part 1 README answers, written as a string.
         Must match what you wrote in README Part 1.
 
-    TODO
+        - **Why a single shortest-path run from S is not enough:**
+    Single shortest-path run is only for a direct path from S to exit (or directly to other relics) while ignoring possible stops on the way.
+
+    - **What decision remains after all inter-location costs are known:**
+    We need to still decide the optimal order to visit each relic to ultimately get to the exit.
+
+    - **Why this requires a search over orders (one sentence):**
+    Due to the one way corridors (directed path/graph),
+    there can be multiple paths that produce different costs, so we go through
+    all possible paths using our precomputation design to find the best minimum one.
+
     """
     return "TODO"
 
