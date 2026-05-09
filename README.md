@@ -17,7 +17,7 @@
 > per question. Each bullet should be 1-2 sentences max.
 
 - **Why a single shortest-path run from S is not enough:**
-Single shortest-path run is only for a direct path from S to exit (or directly to other relics) while ignoring possible stops on the way.
+Single shortest-path run is only for a direct path from S to exit (or directly to other relics) while ignoring possible stops on the way. 
 
 - **What decision remains after all inter-location costs are known:**
 We need to still decide the optimal order to visit each relic to ultimately get to the exit.
@@ -35,22 +35,22 @@ all possible paths using our precomputation design to find the best minimum one.
 
 > List the source node types as a bullet list. For each, one-line reason.
 
-| Source Node Type | Why it is a source |
-|---|---|
-| _node type_ | _one-line reason_ |
-| _node type_ | _one-line reason_ |
+| Source Node Type | Why it is a source                                                                |
+|------------------|-----------------------------------------------------------------------------------|
+| Spawn            | It's the starting point/fixed entrance point                                      |
+| relic            | collecting relic --> relic becomes another start point to reach next point/relic. |
 
 ### Part 2b: Distance Storage
 
 > Fill in the table. No prose required.
 
-| Property | Your answer |
-|---|---|
-| Data structure name | |
-| What the keys represent | |
-| What the values represent | |
-| Lookup time complexity | |
-| Why O(1) lookup is possible | |
+| Property | Your answer                                                                                            |
+|---|--------------------------------------------------------------------------------------------------------|
+| Data structure name | nested dictionary                                                                                      |
+| What the keys represent | first key: source node. second key: destination                                                        |
+| What the values represent | minimum fuel cost between each source and destination node                                             |
+| Lookup time complexity | O(1)                                                                                                   |
+| Why O(1) lookup is possible | hashing in data structure allows us to directly access/find such cost without having to search through |
 
 ### Part 2c: Precomputation Complexity
 
