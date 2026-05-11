@@ -344,11 +344,21 @@ if __name__ == "__main__":
 
     sources = select_sources('S', ['A'], 'E')
     assert sources == ['S', 'A'], f"Test select_sources FAILED: expected ['S', 'A'], got {sources}"
-    print(f"  Test select_sources passed  sources={sources}")
+    print(f" Test select_sources passed sources={sources}")
 
     distance = run_dijkstra(graph, 'S')
     expected_distance = {'S': 0, 'B': 1, 'A': 3, 'E': 4}
     assert distance == expected_distance, f"Test run_dijkstra FAILED: expected {expected_distance}, got {distance}"
-    print(f"  Test run_dijkstra passed  distances={distance}")
+    print(f" Test run_dijkstra passed distances={distance}")
 
+    # run custom test for precomputation
+    dist_table = precompute_distances(graph, 'S', ['A'], 'E')
+    expected_table = {
+        'S': {'S': 0, 'B': 1, 'A': 3, 'E': 4},
+        'A': {'S': float('inf'), 'B': float('inf'), 'A': 0, 'E': 1}
+    }
+    assert dist_table == expected_table, f"Test precompute_distances FAILED: expected {expected_table}, got {dist_table}"
+    print(f" Test precompute_distances passed dist_table={dist_table}")
+
+    
 

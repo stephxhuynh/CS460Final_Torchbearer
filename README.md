@@ -74,29 +74,29 @@ all possible paths using our precomputation design to find the best minimum one.
 > Do not copy the invariant text from the spec.
 
 - **For nodes already finalized (in S):**
-  _Your answer here._
+  - nodes 'v' in S with absolute/permanent minimum fuel/distance cost from source to the node.
 
 - **For nodes not yet finalized (not in S):**
-  _Your answer here._
+  - recorded distance dist[u] is our best minimum fuel cost so far through safely finalized nodes, but could improve as we explore/finalize more nodes
 
 ### Part 3b: Why Each Phase Holds
 
 > One to two bullets per phase. Maintenance must mention nonnegative edge weights.
 
 - **Initialization : why the invariant holds before iteration 1:**
-  _Your answer here._
+  - Before the first iteration, S is empty so dist[x] is 0 because there are no nodes/paths in S yet and all other nodes are inf and not finalized.
 
 - **Maintenance : why finalizing the min-dist node is always correct:**
-  _Your answer here._
-
+  - Cost is the permanent minimum cost from source to node when we finalize it
+  - non-negative edge weights means an alternate (cheaper) path is not possible through non finalized nodes as distance can't be reduced later on.
+  
 - **Termination : what the invariant guarantees when the algorithm ends:**
-  _Your answer here._
+  - when queue is empty, all nodes are finalized and dist[x] is the minimum cost from source to node x
 
 ### Part 3c: Why This Matters for the Route Planner
 
 > One sentence connecting correct distances to correct routing decisions.
-
-_Your answer here._
+ - Torchbearer route decisions rely on correct finalized distances because if they're wrong, it doesn't truly find the shortest path if it wastes fuel or never finds a path with an exit. 
 
 ---
 
