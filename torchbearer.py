@@ -102,11 +102,16 @@ def run_dijkstra(graph, source):
     for node in graph:
         graph_distance[node] = float('inf')
 
+    # start distance from source to itself is 0
+    graph_distance[source] = 0
     # begin at start/source node
     queue = [(0, source)]
 
+    # while queue is not empty
     while queue:
+        # pop the smallest distance/node from queue
         temp_distance, u = heapq.heappop(queue)
+        # if we've already found a shorter distance, skip
         if temp_distance > graph_distance[u]:
             continue
 
@@ -114,7 +119,8 @@ def run_dijkstra(graph, source):
             new_distance = temp_distance + cost
             if new_distance < graph_distance[neighbor]:
                 graph_distance[neighbor] = new_distance
-                
+                # push to queue with new distance/neighbors
+                heapq.heappush(queue, (new_distance, neighbor))
 
 
     return graph_distance
