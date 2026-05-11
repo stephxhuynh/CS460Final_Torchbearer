@@ -164,7 +164,28 @@ def dijkstra_invariant_check():
 
     TODO
     """
-    return "TODO"
+    return """
+    - **For nodes already finalized (in S):**
+      - nodes 'v' in S with absolute/permanent minimum fuel/distance cost from source to the node.
+    
+    - **For nodes not yet finalized (not in S):**
+      - recorded distance dist[u] is our best minimum fuel cost so far through safely finalized nodes, but could improve as we explore/finalize more nodes
+
+    - **Initialization : why the invariant holds before iteration 1:**
+      - Before the first iteration, S is empty so dist[x] is 0 because there are no nodes/paths in S yet and all other nodes are inf and not finalized.
+    
+    - **Maintenance : why finalizing the min-dist node is always correct:**
+      - Cost is the permanent minimum cost from source to node when we finalize it
+      - non-negative edge weights means an alternate (cheaper) path is not possible through non finalized nodes as distance can't be reduced later on.
+      
+    - **Termination : what the invariant guarantees when the algorithm ends:**
+      - when queue is empty, all nodes are finalized and dist[x] is the minimum cost from source to node x
+    
+     - Torchbearer route decisions rely on correct finalized distances because if they're wrong, it doesn't truly find the shortest path if it wastes fuel or never finds a path with an exit. 
+
+    
+    
+    """
 
 
 # =============================================================================
@@ -360,5 +381,5 @@ if __name__ == "__main__":
     assert dist_table == expected_table, f"Test precompute_distances FAILED: expected {expected_table}, got {dist_table}"
     print(f" Test precompute_distances passed dist_table={dist_table}")
 
-    
+
 
