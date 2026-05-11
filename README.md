@@ -56,10 +56,10 @@ all possible paths using our precomputation design to find the best minimum one.
 
 > State the total complexity and show the arithmetic. Two to three lines max.
 
-- **Number of Dijkstra runs:** _your answer_
-- **Cost per run:** _your answer_
-- **Total complexity:** _your answer_
-- **Justification (one line):** _your answer_
+- **Number of Dijkstra runs:** k + 1
+- **Cost per run:** O(mlog(n)) 
+- **Total complexity:** O((k+1)*mlog(n))
+- **Justification (one line):** Use dijkstra's algorithm to find the minimum cost from each source node to each destination node (k relic) 
 
 ---
 

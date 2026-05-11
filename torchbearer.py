@@ -65,7 +65,6 @@ def select_sources(spawn, relics, exit_node):
     list[node]
         No duplicates. Order does not matter.
 
-    TODO
     """
     source = []
 
@@ -95,7 +94,6 @@ def run_dijkstra(graph, source):
         Minimum cost from source to every node in graph.
         Unreachable nodes map to float('inf').
 
-    TODO
     """
     graph_distance = {}
     # at start, set every node's distance to infinity
@@ -144,9 +142,12 @@ def precompute_distances(graph, spawn, relics, exit_node):
         Nested structure supporting dist_table[u][v] lookups
         for every source u your design requires.
 
-    TODO
     """
-    pass
+    # get list of sources to map out
+    sources_to_map = select_sources(spawn, relics, exit_node)
+    # return dictionary after running run_dijkstra for each source
+    return {source: run_dijkstra(graph,source) for source in sources_to_map}
+
 
 
 # =============================================================================

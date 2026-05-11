@@ -27,7 +27,7 @@ my algorithm efficiently by skipping said entries/nodes.
 
 ---
 
-## Entry 2 – [Date]: [Short description]
+## Entry 2 – 5/11/2026: bug in run_dijkstra
 
 > Required. At least one entry must describe a bug, wrong assumption, or design change
 > you encountered. Describe what went wrong and how you resolved it.
