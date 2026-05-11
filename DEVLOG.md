@@ -32,7 +32,10 @@ my algorithm efficiently by skipping said entries/nodes.
 > Required. At least one entry must describe a bug, wrong assumption, or design change
 > you encountered. Describe what went wrong and how you resolved it.
 
-_Your entry here._
+In my run_dijkstra function, I had a bug where it was not returning the correct distances
+from the entrance to the relic chamber. I got: AssertionError: Test run_dijkstra FAILED: expected {'S': 0, 'B': 1, 'A': 3, 'E': 4}, got {'S': inf, 'B': 1, 'A': inf, 'E': inf}.
+I used my own testing to ensure each function was working properly and found that my problem was in my run_dijkstra's function where the distances
+were not being returned correctly. I fixed this by.... (continue here)
 
 ---
 

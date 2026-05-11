@@ -102,10 +102,25 @@ def run_dijkstra(graph, source):
     for node in graph:
         graph_distance[node] = float('inf')
 
-    
+    # begin at start/source node
+    queue = [(0, source)]
+
+    while queue:
+        temp_distance, u = heapq.heappop(queue)
+        if temp_distance > graph_distance[u]:
+            continue
+
+        for neighbor, cost in graph[u]:
+            new_distance = temp_distance + cost
+            if new_distance < graph_distance[neighbor]:
+                graph_distance[neighbor] = new_distance
+                
 
 
-    pass
+    return graph_distance
+
+
+
 
 
 def precompute_distances(graph, spawn, relics, exit_node):
@@ -310,4 +325,23 @@ def _run_tests():
 
 
 if __name__ == "__main__":
-    _run_tests()
+    # _run_tests()
+
+    # run custom test for select_sources and run_dijkstras
+    graph = {
+        'S':[('B', 1)],
+        'B': [('A', 2), ('E', 3)],
+        'A': [('E', 1)],
+        'E': []
+    }
+
+    sources = select_sources('S', ['A'], 'E')
+    assert sources == ['S', 'A'], f"Test select_sources FAILED: expected ['S', 'A'], got {sources}"
+    print(f"  Test select_sources passed  sources={sources}")
+
+    distance = run_dijkstra(graph, 'S')
+    expected_distance = {'S': 0, 'B': 1, 'A': 3, 'E': 4}
+    assert distance == expected_distance, f"Test run_dijkstra FAILED: expected {expected_distance}, got {distance}"
+    print(f"  Test run_dijkstra passed  distances={distance}")
+
+
