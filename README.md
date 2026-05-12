@@ -107,17 +107,19 @@ all possible paths using our precomputation design to find the best minimum one.
 > State the failure mode. Then give a concrete counter-example using specific node names
 > or costs (you may use the illustration example from the spec). Three to five bullets.
 
-- **The failure mode:** _Your answer here._
-- **Counter-example setup:** _Your answer here._
-- **What greedy picks:** _Your answer here._
-- **What optimal picks:** _Your answer here._
-- **Why greedy loses:** _Your answer here._
+- **The failure mode:** Greedy fails when it only considers the immediate local optimal/cheapest steps without considering the future steps aka global optimal/cheapest steps.
+- **Counter-example setup:** (using illustration nodes): S = start/entrance, relics = B,C,D; exit = T; 
+  - S--> B = 1; S-->C = 2; S-->D = 50; B-->C = 100; B-->D = 100;C-->D = 1; D-->B = 1; B-->T = 1; D-->T = 1; C-->T = 1.
+- **What greedy picks:** From S, greedy would pick B --> C --> D --> T (total fuel cost = 103)
+- **What optimal picks:** S-->C-->D-->B-->T (total fuel cost = 5)
+- **Why greedy loses:** Greedy only looks at the immediate next cheapest move, so we go to B, but that causes to have more expensive paths
+along the way. The total route cost involves all future steps, which greedy fails to consider.
 
 ### What the Algorithm Must Explore
 
 > One bullet. Must use the word "order."
 
-- _Your answer here._
+- The algorithm must explore every possible relic order because different orders of relics can lead to different total fuel costs.
 
 ---
 
