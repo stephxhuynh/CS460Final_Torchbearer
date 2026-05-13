@@ -42,9 +42,17 @@ to add the neighbor distances to the priority queue.
 
 ---
 
-## Entry 3 – [Date]: [Short description]
+## Entry 3 – 5/12/26: next plan and implementation, difficulties, and testing
 
-_Your entry here._
+My next plan is to implement part 5-6 as we switch into creating our search and pruning algorithms.
+I plan to implement part 5 ensuring I keep track of the state of the game (current location, relics, order of relics, cost so far).
+I think the hardest part will be finding the different paths and ensuring that we choose the correct one (probably through backtracking), while also
+making sure we keep track of the current state.
+Part 6: I plan to prune any route that I know costs more than what my current state/order is, so we don't waste resources continuing down a bad path.
+I plan to test this using my greedy problem from part 4, passing it 
+to my algorithm to see if my algorithm correctly returned the global optimum rather than greedy optimum.
+
+
 
 ---
 
