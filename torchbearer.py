@@ -241,7 +241,23 @@ def find_optimal_route(dist_table, spawn, relics, exit_node):
 
     TODO
     """
-    pass
+    # set up parameters reflecting 5a of readme and for _explore function; sets up starting search state
+    relics_remaining = {}   # dictionary of relics remaining to be visited
+    for relic in relics:
+        relics_remaining[relic] = True
+    relics_visited_order = []
+    current_loc = spawn
+    cost_so_far = 0
+    # keep track of most optimal minimum cost and ordered list to get there
+    best_cost = {
+        'minimum_fuel_cost': float('inf'),
+        'ordered_relic_list': []
+    }
+    # begin search
+    _explore(dist_table, current_loc, relics_remaining, relics_visited_order, cost_so_far, exit_node, best_cost)
+
+
+    return best_cost['minimum_fuel_cost'], best_cost['ordered_relic_list']
 
 
 def _explore(dist_table, current_loc, relics_remaining, relics_visited_order,
@@ -273,7 +289,43 @@ def _explore(dist_table, current_loc, relics_remaining, relics_visited_order,
     explaining why it is safe (cannot skip the optimal solution).
     This comment is graded.
     """
-    pass
+
+    # pruning: "I plan to prune any route that I know costs more than what my current state/order is"
+    # Best_so_far pruning from part 6
+    lower_bound = cost_so_far
+    if lower_bound >= best["minimum_fuel_cost"]:
+        return
+        # Explanation of why it is safe: The route can only increase from here,
+        # so if lower_bound is more expensive than the current best global route, we can skip it without skipping the optimal solution,
+        # which given we find a more optimal solution, is supposed to be less than the best["minimum_fuel_cost"].
+        # We continue on to explore that possibility of a more optimal solution, but return if we know it's not an optimal solution.
+
+
+    # base case: no relics to explore --> exit
+    if len(relics_remaining) == 0:
+        # add up cost of route so far
+        route_cost = cost_so_far + dist_table[current_loc][exit_node]
+
+        # update best_so_far tracking: if the current route cost is less than the "best", replace it with that route and cost
+        if route_cost < best["minimum_fuel_cost"]:
+            best["minimum_fuel_cost"] = route_cost
+            best["ordered_relic_list"] = relics_visited_order + [exit_node]
+        return
+
+
+
+    # recursive: go through remaining relics
+    for relic in relics_remaining:
+        relics_remaining[relic] = False
+        relics_visited_order.append(relic)
+
+        # call recursion
+        _explore(dist_table, relic, relics_remaining, relics_visited_order, cost_so_far + dist_table[current_loc][relic], exit_node, best)
+
+        # backtracking
+        relics_visited_order.pop()
+        relics_remaining[relic] = True
+
 
 
 # =============================================================================

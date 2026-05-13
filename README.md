@@ -130,30 +130,30 @@ along the way. The total route cost involves all future steps, which greedy fail
 > Document the three components of your search state as a table.
 > Variable names here must match exactly what you use in torchbearer.py.
 
-| Component | Variable name in code | Data type | Description |
-|---|---|---|---|
-| Current location | | | |
-| Relics already collected | | | |
-| Fuel cost so far | | | |
+| Component | Variable name in code | Data type  | Description                                |
+|---|-----------------------|------------|--------------------------------------------|
+| Current location | current_loc           | node       | current node of state space                |
+| Relics already collected | relics_visited_order  | list[node] | List and order of relics collected so far  |
+| Fuel cost so far | cost_so_far           | float      | total fuel cost from source to current_loc |
 
 ### Part 5b: Data Structure for Visited Relics
 
 > Fill in the table.
 
-| Property | Your answer |
-|---|---|
-| Data structure chosen | |
-| Operation: check if relic already collected | Time complexity: |
-| Operation: mark a relic as collected | Time complexity: |
-| Operation: unmark a relic (backtrack) | Time complexity: |
-| Why this structure fits | |
+| Property | Your answer                                                                                                                |
+|---|----------------------------------------------------------------------------------------------------------------------------|
+| Data structure chosen | dictionary                                                                                                                 |
+| Operation: check if relic already collected | Time complexity: O(1)                                                                                                      |
+| Operation: mark a relic as collected | Time complexity:    O(1)                                                                                                   |
+| Operation: unmark a relic (backtrack) | Time complexity:     O(1)                                                                                                  |
+| Why this structure fits | A dictionary allows us to use constant time during each operation of checking, removing, adding, backtracking relic orders |
 
 ### Part 5c: Worst-Case Search Space
 
 > Two bullets.
 
-- **Worst-case number of orders considered:** _Your answer (in terms of k)._
-- **Why:** _One-line justification._
+- **Worst-case number of orders considered:** O(k!) where k is number of relics in |M|
+- **Why:** To get the most optimal minimum fuel cost order, we must consider all possible orders of k relics.
 
 ---
 
