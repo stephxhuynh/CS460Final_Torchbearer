@@ -140,13 +140,13 @@ along the way. The total route cost involves all future steps, which greedy fail
 
 > Fill in the table.
 
-| Property | Your answer                                                                                                                |
-|---|----------------------------------------------------------------------------------------------------------------------------|
-| Data structure chosen | dictionary                                                                                                                 |
-| Operation: check if relic already collected | Time complexity: O(1)                                                                                                      |
-| Operation: mark a relic as collected | Time complexity:    O(1)                                                                                                   |
-| Operation: unmark a relic (backtrack) | Time complexity:     O(1)                                                                                                  |
-| Why this structure fits | A dictionary allows us to use constant time during each operation of checking, removing, adding, backtracking relic orders |
+| Property | Your answer                                                                                                                                                                                   |
+|---|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Data structure chosen | dictionary                                                                                                                                                                                    |
+| Operation: check if relic already collected | Time complexity: O(1)                                                                                                                                                                         |
+| Operation: mark a relic as collected | Time complexity:    O(1)                                                                                                                                                                      |
+| Operation: unmark a relic (backtrack) | Time complexity:     O(1)                                                                                                                                                                     |
+| Why this structure fits | A dictionary allows us to use constant time during each operation of checking, removing, adding, backtracking relic orders. We use True/False to keep track of what still needs to be visited |
 
 ### Part 5c: Worst-Case Search Space
 
@@ -163,23 +163,24 @@ along the way. The total route cost involves all future steps, which greedy fail
 
 > Three bullets.
 
-- **What is tracked:** _Your answer here._
-- **When it is used:** _Your answer here._
-- **What it allows the algorithm to skip:** _Your answer here._
+- **What is tracked:** Tracks 'minimum_fuel_cost' and 'ordered_relic_list'; lowest fuel cost and ordered relic list so far.
+- **When it is used:** In _explore() function 
+- **What it allows the algorithm to skip:** skip nodes that are worst than the best-so-far tracking
 
 ### Part 6b: Lower Bound Estimation
 
 > Three bullets.
 
-- **What information is available at the current state:** _Your answer here._
-- **What the lower bound accounts for:** _Your answer here._
-- **Why it never overestimates:** _Your answer here._
+- **What information is available at the current state:** current_loc, relics_visited_order, cost_so_far, relics_remaining, best['minimum_fuel_cost', 'ordered_relic_list]
+- **What the lower bound accounts for:** cost_so_far to current state
+- **Why it never overestimates:** Lower bound is less than or equal to cost_so_far and can only increase as we explore more nodes/go towards final route.
 
 ### Part 6c: Pruning Correctness
 
 > One to two bullets. Explain why pruning is safe.
 
-- _Your answer here._
+- if cost-so-far/lower bound is greater than route-cost (best-so-far), there's no point of exploring that path, knowing it's more expensive.
+- impossible to get a better solution if we already know it's worse, so we can safely skip it.
 
 ---
 
@@ -187,4 +188,4 @@ along the way. The total route cost involves all future steps, which greedy fail
 
 > Bullet list. If none beyond lecture notes, write that.
 
-- _Your references here._
+- lecture notes and homework problems (greedy algorithms, backtracking, dijkstra, etc)

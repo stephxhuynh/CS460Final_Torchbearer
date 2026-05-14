@@ -295,36 +295,39 @@ def _explore(dist_table, current_loc, relics_remaining, relics_visited_order,
     lower_bound = cost_so_far
     if lower_bound >= best["minimum_fuel_cost"]:
         return
-        # Explanation of why it is safe: The route can only increase from here,
+
+
+    # Explanation of why it is safe: The route can only increase from here,
         # so if lower_bound is more expensive than the current best global route, we can skip it without skipping the optimal solution,
         # which given we find a more optimal solution, is supposed to be less than the best["minimum_fuel_cost"].
         # We continue on to explore that possibility of a more optimal solution, but return if we know it's not an optimal solution.
 
 
     # base case: no relics to explore --> exit
-    if len(relics_remaining) == 0:
+    if len(relics_visited_order) == len(relics_remaining):
         # add up cost of route so far
         route_cost = cost_so_far + dist_table[current_loc][exit_node]
 
         # update best_so_far tracking: if the current route cost is less than the "best", replace it with that route and cost
         if route_cost < best["minimum_fuel_cost"]:
             best["minimum_fuel_cost"] = route_cost
-            best["ordered_relic_list"] = relics_visited_order + [exit_node]
+            best["ordered_relic_list"] = relics_visited_order.copy()
         return
 
 
 
     # recursive: go through remaining relics
     for relic in relics_remaining:
-        relics_remaining[relic] = False
-        relics_visited_order.append(relic)
+        if relics_remaining[relic] == True:
+            relics_remaining[relic] = False
+            relics_visited_order.append(relic)
 
-        # call recursion
-        _explore(dist_table, relic, relics_remaining, relics_visited_order, cost_so_far + dist_table[current_loc][relic], exit_node, best)
+            # call recursion
+            _explore(dist_table, relic, relics_remaining, relics_visited_order, cost_so_far + dist_table[current_loc][relic], exit_node, best)
 
-        # backtracking
-        relics_visited_order.pop()
-        relics_remaining[relic] = True
+            # backtracking
+            relics_visited_order.pop()
+            relics_remaining[relic] = True
 
 
 
@@ -421,29 +424,41 @@ if __name__ == "__main__":
 
     # run custom test for select_sources and run_dijkstras
     graph = {
-        'S':[('B', 1)],
-        'B': [('A', 2), ('E', 3)],
-        'A': [('E', 1)],
-        'E': []
+        'S': [('B', 1), ('C', 2), ('D', 2)],
+        'B': [('D', 1), ('T', 1)],
+        'C': [('B', 1), ('T', 1)],
+        'D': [('B', 1), ('C', 1)],
+        'T': []
     }
 
-    sources = select_sources('S', ['A'], 'E')
-    assert sources == ['S', 'A'], f"Test select_sources FAILED: expected ['S', 'A'], got {sources}"
+    relics = ['B', 'C', 'D']
+
+    sources = select_sources('S', relics , 'T')
+    assert sources == ['S', 'B', 'C', 'D'], f"Test select_sources FAILED: expected ['S', 'B', 'C', 'D'], got {sources}"
     print(f" Test select_sources passed sources={sources}")
 
     distance = run_dijkstra(graph, 'S')
-    expected_distance = {'S': 0, 'B': 1, 'A': 3, 'E': 4}
+    expected_distance = {'S': 0, 'B': 1, 'C': 2, 'D': 2, 'T': 2}
     assert distance == expected_distance, f"Test run_dijkstra FAILED: expected {expected_distance}, got {distance}"
     print(f" Test run_dijkstra passed distances={distance}")
 
     # run custom test for precomputation
-    dist_table = precompute_distances(graph, 'S', ['A'], 'E')
+    dist_table = precompute_distances(graph, 'S', relics, 'T')
     expected_table = {
-        'S': {'S': 0, 'B': 1, 'A': 3, 'E': 4},
-        'A': {'S': float('inf'), 'B': float('inf'), 'A': 0, 'E': 1}
+        'S': {'S': 0, 'B': 1, 'C': 2, 'D': 2, 'T': 2},
+        'B': {'S': float('inf'), 'B': 0, 'C': 2, 'D': 1, 'T': 1},
+        'C': {'S': float('inf'), 'B': 1, 'C': 0, 'D': 2, 'T': 1},
+        'D': {'S': float('inf'), 'B': 1, 'C': 1, 'D': 0, 'T': 2}
     }
     assert dist_table == expected_table, f"Test precompute_distances FAILED: expected {expected_table}, got {dist_table}"
     print(f" Test precompute_distances passed dist_table={dist_table}")
 
 
+    # Run tests on find_optimal_route (and therefore, _explore)
+    cost, route = find_optimal_route(dist_table, 'S', relics, 'T')
+    expected_cost = 4
+    expected_route = ['B', 'D', 'C']
 
+    assert cost == expected_cost, f"Test find_optimal_route FAILED: expected {expected_cost}, got {cost}"
+    assert route == expected_route, f"Test find_optimal_route FAILED: expected {expected_route}, got {route}"
+    print(f" Test find_optimal_route passed cost={cost}  route={route}")
