@@ -3,17 +3,9 @@
 **Student Name:** Steph Huynh
 **Student ID:** 824058671
 
-> Instructions: Write at least four dated entries. Required entry types are marked below.
-> Two to five sentences per entry is sufficient. Write entries as you go, not all in one
-> sitting. Graders check that entries reflect genuine work across multiple sessions.
-> Delete all blockquotes before submitting.
-
 ---
 
 ## Entry 1 – 5/7/2026: Initial Plan
-
-> Required. Write this before writing any code. Describe your plan: what you will
-> implement first, what parts you expect to be difficult, and how you plan to test.
 
 My initial plan is to begin the Dijkstra's precomputation design/algorithm such as the select_sources and run_dijkstra
 which will be used to compute distances from the entrance and each relic chamber. 
@@ -28,9 +20,6 @@ my algorithm efficiently by skipping said entries/nodes.
 ---
 
 ## Entry 2 – 5/11/2026: bug in run_dijkstra
-
-> Required. At least one entry must describe a bug, wrong assumption, or design change
-> you encountered. Describe what went wrong and how you resolved it.
 
 In my run_dijkstra function, I had a bug where it was not returning the correct distances
 from the entrance to the relic chamber. I got: AssertionError: Test run_dijkstra FAILED: expected {'S': 0, 'B': 1, 'A': 3, 'E': 4}, got {'S': inf, 'B': 1, 'A': inf, 'E': inf}.
@@ -56,27 +45,30 @@ to my algorithm to see if my algorithm correctly returned the global optimum rat
 
 ---
 
-## Entry 4 – [Date]: Post-Implementation Reflection
+## Entry 4 – 5/13/26: Post-Implementation Reflection
 
-> Required. Written after your implementation is complete. Describe what you would
-> change or improve given more time.
 
-_Your entry here._
+I wonder if my implementation would've been good if there were more relics to go through.
+I wonder what it would be like to solve this using dynamic programming instead similar to last midterm,
+especially given that we could run into similar states and not have to recompute the same path.
+That would be interesting to see how it would work, and if it would be faster or take up more time and space complexity.
+I would want to try to implement it without a dictionary.
+I think it is a bit repetitive to keep track of relic plus "true" or "false" for each relic.
+We could do something similar to one of our (I believe) sliding window homework
+where we keep track of the relics itself rather than pairing true/false with it.
 
 ---
 
 ## Final Entry – [Date]: Time Estimate
 
-> Required. Estimate minutes spent per part. Honesty is expected; accuracy is not graded.
-
 | Part | Estimated Hours |
-|---|---|
-| Part 1: Problem Analysis | |
-| Part 2: Precomputation Design | |
-| Part 3: Algorithm Correctness | |
-| Part 4: Search Design | |
-| Part 5: State and Search Space | |
-| Part 6: Pruning | |
-| Part 7: Implementation | |
-| README and DEVLOG writing | |
-| **Total** | |
+|---|-----------------|
+| Part 1: Problem Analysis | 1               |
+| Part 2: Precomputation Design | 1               |
+| Part 3: Algorithm Correctness | 1               |
+| Part 4: Search Design | 1               |
+| Part 5: State and Search Space | 1               |
+| Part 6: Pruning | 1               |
+| Part 7: Implementation | 5-6             |
+| README and DEVLOG writing | 2               |
+| **Total** |                 |

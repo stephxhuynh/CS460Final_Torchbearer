@@ -34,7 +34,8 @@ def explain_problem():
     """
     explanation = """
        - **Why a single shortest-path run from S is not enough:**
-    Single shortest-path run is only for a direct path from S to exit (or directly to other relics) while ignoring possible stops on the way.
+    Single shortest-path run is only for a direct path from S to exit (or directly to other relics) while ignoring possible stops on the way, meaning it
+    gives us cost, no route to get there 
 
     - **What decision remains after all inter-location costs are known:**
     We need to still decide the optimal order to visit each relic to ultimately get to the exit.
@@ -102,7 +103,6 @@ def run_dijkstra(graph, source):
 
     # start distance from source to itself is 0
     graph_distance[source] = 0
-    # begin at start/source node
     queue = [(0, source)]
 
     # while queue is not empty
@@ -204,7 +204,7 @@ def explain_search():
     """
     return """
     Why Greedy Fails
-    - **The failure mode:** Greedy fails when it only considers the immediate local optimal/cheapest steps without considering the future steps aka global optimal/cheapest steps.
+    - **The failure mode:** Greedy fails when it only considers the immediate local optimal/cheapest steps without considering the future steps aka possible global optimal/cheapest steps.
     - **Counter-example setup:** (using illustration nodes): S = start/entrance, relics = B,C,D; exit = T; 
       - S--> B = 1; S-->C = 2; S-->D = 50; B-->C = 100; B-->D = 100;C-->D = 1; D-->B = 1; B-->T = 1; D-->T = 1; C-->T = 1.
     - **What greedy picks:** From S, greedy would pick B --> C --> D --> T (total fuel cost = 103)
@@ -352,7 +352,13 @@ def solve(graph, spawn, relics, exit_node):
 
     TODO
     """
-    pass
+    graph_distance = precompute_distances(graph, spawn, relics, exit_node)
+    minimum_fuel_cost, ordered_relic_list = find_optimal_route(graph_distance, spawn, relics, exit_node)
+
+    return (minimum_fuel_cost, ordered_relic_list)
+
+
+
 
 
 # =============================================================================
@@ -420,7 +426,7 @@ def _run_tests():
 
 
 if __name__ == "__main__":
-    # _run_tests()
+    _run_tests()
 
     # run custom test for select_sources and run_dijkstras
     graph = {
